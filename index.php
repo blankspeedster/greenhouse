@@ -74,7 +74,7 @@ $moistures = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
                                     <i class="fas fa-chart-area me-1"></i>
                                     Temperature Logs of the Device (<?php echo $device['code']; ?>)
                                 </div>
-                                <div class="card-body"><canvas id="temperatureChart" width="100%" height="60"></canvas></div>
+                                <div class="card-body"><canvas id="temperatureChart" width="100%" height="80"></canvas></div>
                             </div>
                         </div>
 
@@ -84,7 +84,7 @@ $moistures = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
                                     <i class="fas fa-chart-area me-1"></i>
                                     Moisture Logs of the Device (<?php echo $device['code']; ?>)
                                 </div>
-                                <div class="card-body"><canvas id="moistureChart" width="100%" height="60"></canvas></div>
+                                <div class="card-body"><canvas id="moistureChart" width="100%" height="80"></canvas></div>
                             </div>
                         </div>
 
