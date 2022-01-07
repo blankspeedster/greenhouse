@@ -3,9 +3,10 @@
     if(isset($_POST['add_log'])){
         $temperature = $_POST['temperature'];
         $moisture = ucfirst($_POST['moisture']);
+        $humidity = $_POST["humidity"];
         $device_id = 1;
 
-        $mysqli->query(" INSERT INTO logs ( device_id, temperature, moisture) VALUES('$device_id','$temperature','$moisture') ") or die ($mysqli->error);
+        $mysqli->query(" INSERT INTO logs ( device_id, temperature, moisture, humidity) VALUES('$device_id','$temperature','$moisture', '$humidity') ") or die ($mysqli->error);
 
         $_SESSION['notification'] = "Log has been added!";
         $_SESSION['msg_type'] = "success";

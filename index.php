@@ -3,6 +3,7 @@ require_once("process_index.php");
 $devices = $mysqli->query("SELECT * FROM devices") or die ($mysqli->error);
 $device = $devices->fetch_array();
 $temperatures = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
+$humidity = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
 $moistures = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
 ?>
 <!DOCTYPE html>
@@ -88,6 +89,16 @@ $moistures = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
                             </div>
                         </div>
 
+                        <div class="col-xl-12">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-area me-1"></i>
+                                    Humidity Logs of the Device (<?php echo $device['code']; ?>)
+                                </div>
+                                <div class="card-body"><canvas id="humidityChart" width="100%" height="40"></canvas></div>
+                            </div>
+                        </div>                        
+
                         <!-- <div class="col-xl-6">
                             <div class="card mb-4">
                                 <div class="card-header">
@@ -155,16 +166,16 @@ $moistures = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
                         }
                     }
                 });
-                
-                // Moisture
-                var moistureChart = document.getElementById("moistureChart");
-                var myMoistureChart = new Chart(moistureChart, {
+
+                // Humidity
+                var ctx = document.getElementById("humidityChart");
+                var myLineChart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         // labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 14"],
-                        labels: [<?php while($moisture=mysqli_fetch_array($moistures)){echo "\"".$moisture['time_log']."\",";}  ?>],
+                        labels: [<?php while($humid=mysqli_fetch_array($humidity)){echo "\"".$humid['time_log']."\",";}  ?>],
                         datasets: [{
-                            label: "Moisture",
+                            label: "Temperature",
                             lineTension: 0.3,
                             backgroundColor: "rgba(2,117,216,0.2)",
                             borderColor: "rgba(2,117,216,1)",
@@ -176,14 +187,8 @@ $moistures = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
                             pointHitRadius: 50,
                             pointBorderWidth: 2,
                             data: [<?php
-                            $moistures = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
-                            while($moisture=mysqli_fetch_array($moistures)){
-                                $maxVal = 1023;
-                                $moisturePercentage = 1023 - $moisture['moisture'];
-                                $moisturePercentage = $moisturePercentage / 1023;
-                                $moisturePercentage = $moisturePercentage * 100;
-                                echo $moisturePercentage.",";}
-                                ?>],
+                            $humidity = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
+                            while($humid=mysqli_fetch_array($humidity)){echo $humid['humidity'].",";}  ?>],
                         }],
                     },
                     options: {
@@ -215,7 +220,70 @@ $moistures = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
                         }
                     }
                 });
+                
 
+
+                // Moisture
+                var moistureChart = document.getElementById("moistureChart");
+                var myMoistureChart = new Chart(moistureChart, {
+                    type: 'line',
+                    data: {
+                        // labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 14"],
+                        labels: [<?php while($moisture=mysqli_fetch_array($moistures)){echo "\"".$moisture['time_log']."\",";}  ?>],
+                        datasets: [{
+                            label: "Moisture",
+                            lineTension: 0.3,
+                            backgroundColor: "rgba(2,117,216,0.2)",
+                            borderColor: "rgba(2,117,216,1)",
+                            pointRadius: 5,
+                            pointBackgroundColor: "rgba(2,117,216,1)",
+                            pointBorderColor: "rgba(255,255,255,0.8)",
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                            pointHitRadius: 50,
+                            pointBorderWidth: 2,
+                            data: [<?php
+                            $moistures = $mysqli->query("SELECT * FROM logs") or die ($mysqli->error);
+                            while($moisture=mysqli_fetch_array($moistures)){
+                                // $maxVal = 1023;
+                                // $moisturePercentage = 1023 - $moisture['moisture'];
+                                // $moisturePercentage = $moisturePercentage / 1023;
+                                // $moisturePercentage = $moisturePercentage * 100;
+                                $moisturePercentage = $moisture['moisture'];
+
+                                echo $moisturePercentage.",";}
+                                ?>],
+                        }],
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                time: {
+                                    unit: 'date'
+                                },
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    maxTicksLimit: 7
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    min: 0,
+                                    max: 1.1,
+                                    maxTicksLimit: 5
+                                },
+                                gridLines: {
+                                    color: "rgba(0, 0, 0, .125)",
+                                }
+                            }],
+                        },
+                        legend: {
+                            display: true
+                        }
+                    }
+                });
 
             </script>
 </body>
