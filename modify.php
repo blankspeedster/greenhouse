@@ -44,18 +44,26 @@
                                 <div class="card-body">
                                     <form method="post" action="process_modify.php">
                                         <div class="row mb-3">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" min="-100" max="1023" id="moisture" name="moisture" type="number" placeholder="Soil Moisture" required/>
-                                                    <label for="inputFirstName">Soil Moisture (0 - 1023)</label>
+                                                    <input class="form-control" min="0" max="1" id="moisture" name="moisture" type="number" placeholder="Soil Moisture" required/>
+                                                    <label for="inputFirstName">Soil Moisture (0 - No Moisture, 1 - With Moisture)</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-floating">
                                                     <input class="form-control" min="-100" max="100" id="temperature" name="temperature" type="number" placeholder="Temperature in Celcius" required/>
                                                     <label for="inputLastName">Temperature in Celcius</label>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input class="form-control" min="0" max="100" id="temperature" name="humidity" type="number" placeholder="Temperature in Celcius" required/>
+                                                    <label for="inputLastName">Humidity (0 - 100)</label>
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="mt-4 mb-0">
                                             <div class="d-grid"><button class="btn btn-primary btn-block" type="submit" name="add_log">Add Log</button></div>

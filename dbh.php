@@ -8,7 +8,7 @@
     $host = 'localhost';
     $username = 'root';
     $password = '';
-    $database = 'modulehub_database';
+    $database = 'jjjwcdzy_greenhouse';
 
     $mysqli = new mysqli($host,$username,$password,$database) or die(mysqli_error($mysqli));
 
