@@ -6,9 +6,9 @@
     }
 
     $host = 'localhost';
-    $username = 'root';
-    $password = '';
-    $database = 'jjjwcdzy_greenhouse';
+    $username = 'greenhouse_database';
+    $password = 'greenhouse_database';
+    $database = 'greenhouse_database';
 
     $mysqli = new mysqli($host,$username,$password,$database) or die(mysqli_error($mysqli));
 
