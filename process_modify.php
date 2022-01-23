@@ -25,4 +25,31 @@
         header("location: modify.php");
     }
 
+    //Modify Light
+    if(isset($_POST['modify_light'])){
+        $device_id = "1";
+        $light_on = $_POST["light"];
+
+        $mysqli->query("UPDATE devices SET light_on = '$light_on' WHERE id = '1' ") or die ($mysqli->error);
+
+        $_SESSION['notification'] = "Light has been modified!";
+        $_SESSION['msg_type'] = "warning";
+
+        header("location: modify.php");
+    }
+
+
+    //Modify Fan
+    if(isset($_POST['modify_fan'])){
+        $device_id = "1";
+        $light_on = $_POST["fan"];
+
+        $mysqli->query("UPDATE devices SET fan_on = '$light_on' WHERE id = '1' ") or die ($mysqli->error);
+
+        $_SESSION['notification'] = "Fan has been modified!";
+        $_SESSION['msg_type'] = "warning";
+
+        header("location: modify.php");
+    }
+
 ?>
