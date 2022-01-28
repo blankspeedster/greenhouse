@@ -120,7 +120,7 @@ ON p.device_id = d.id") or die($mysqli->error);
                                                 <td><?php echo $device['device_id']; ?></td>
                                                 <td><?php echo $device["code"]; ?></td>
                                                 <td><?php echo $device["from_soil_acidity"]." - ".$device["to_soil_acidity"]."pH"; ?></td>
-                                                <td><?php echo $device["from_temperature"]." - ".$device["from_temperature"]."°C"; ?></td>
+                                                <td><?php echo $device["from_temperature"]." - ".$device["to_temperature"]."°C"; ?></td>
                                                 <td><?php echo $moist ?></td>
                                                 <td><?php echo $device["from_light"]." - ".$device["to_light"]."hrs a day"; ?></td>
                                                 <td>
